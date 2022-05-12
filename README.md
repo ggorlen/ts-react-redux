@@ -1,1 +1,3 @@
-# ts-react-redux
+# ts-react-starter
+
+TS, React, webpack, sass, eslint
