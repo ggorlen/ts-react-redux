@@ -1,12 +1,12 @@
 export default {
-  //INC: "INC",
-  //inc() {
-  //  return {type: this.INC};
-  //},
-  //DEC: "DEC",
-  //dec() {
-  //  return {type: this.DEC};
-  //},
+  INC: "INC",
+  inc(id) {
+    return { type: this.INC, payload: id };
+  },
+  DEC: "DEC",
+  dec(id) {
+    return { type: this.DEC, payload: id };
+  },
   ADD_NOTE: "ADD_NOTE",
   addNote(note) {
     return {
@@ -22,10 +22,10 @@ export default {
     };
   },
   DELETE_NOTE: "DELETE_NOTE",
-  deleteNote(index) {
+  deleteNote(id) {
     return {
       type: this.DELETE_NOTE,
-      payload: index,
+      payload: id,
     };
   },
 };

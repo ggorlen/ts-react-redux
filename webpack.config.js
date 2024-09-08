@@ -10,14 +10,14 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: "babel-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {loader: "css-loader"},
-          {loader: "sass-loader"},
+          { loader: "css-loader" },
+          { loader: "sass-loader" },
         ],
       },
     ],
@@ -28,7 +28,7 @@ module.exports = {
   //stats: "errors-only",
   devServer: {
     //stats: "errors-only",
-    static: {directory: path.join(__dirname, "dist")},
+    static: { directory: path.join(__dirname, "dist") },
     compress: true,
     port: 5000,
     historyApiFallback: true,
@@ -53,11 +53,10 @@ module.exports = {
       //  minifyURLs: true,
       //},
       template: "./src/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
     }),
     new MiniCssExtractPlugin({
       filename: "bundle.css",
     }),
   ],
 };
-

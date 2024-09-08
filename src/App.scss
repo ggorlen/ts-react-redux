@@ -1,9 +1,6 @@
-$color: #aaa;
+$font: monospace;
 
 * {
-  font-family: monospace;
-}
-
-body {
-  background-color: $color;
+  font-family: $font;
+  box-sizing: border-box;
 }

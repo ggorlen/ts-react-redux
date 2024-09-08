@@ -1,65 +1,58 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
+import { connect } from "react-redux";
+import actions from "../actions";
+import Rating from "./Rating";
 
-const Note = ({note, onEditNote, onDeleteNote}) => {
-  // TODO bug copying state into props, rendering {text} instead of note.text
-  // TODO make todos sortable
-  // TODO styled-components style={{display: 'flex', justifyContent: 'space-between'}}>
-  const pRef = useRef();
+const Note = ({ note, onEditNote, onDeleteNote, onInc, onDec }) => {
+  const pRef = useRef<HTMLSpanElement>(null);
   const [editable, setEditable] = useState(false);
+
+  const handleBlur = () => {
+    setEditable(false);
+    if (pRef.current) {
+      onEditNote({
+        ...note,
+        text: pRef.current.textContent,
+      });
+    }
+  };
+
   return (
-    <li>
-      <p
+    <li
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <span
         ref={pRef}
         contentEditable={editable}
         suppressContentEditableWarning={true}
         onClick={() => setEditable(true)}
-        onBlur={() => {
-          setEditable(false);
-          onEditNote({text: pRef.current.textContent});
-        }}
+        onBlur={handleBlur}
       >
         {note.text}
-      </p>
-      <button onClick={onDeleteNote}>x</button>
+      </span>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Rating
+          rating={note.rating}
+          onInc={() => onInc(note.id)}
+          onDec={() => onDec(note.id)}
+        />
+        <button style={{ margin: "1em" }} onClick={() => onDeleteNote(note.id)}>
+          x
+        </button>
+      </div>
     </li>
   );
 };
 
-export default Note;
-      //<Rating rating={rating} onInc={onInc} onDec={onDec} />
-
-
-/*
-import {connect} from "react-redux";
-import actions from "../actions";
-import Rating from "./rating";
-
-const Note = ({text, onInc, onDec, rating}) => {
-  return (
-    <div>
-      <p>{text}</p>
-      <Rating rating={rating} onInc={onInc} onDec={onDec} />
-    </div>
-  );
-};
-
-const mapStateToProps = state => ({
-  rating: state.noteReducer.noteScore,
+const mapDispatchToProps = (dispatch) => ({
+  onInc: (id) => dispatch(actions.inc(id)),
+  onDec: (id) => dispatch(actions.dec(id)),
+  onDeleteNote: (id) => dispatch(actions.deleteNote(id)),
+  onEditNote: (note) => dispatch(actions.editNote(note)),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onUpnote() {
-    dispatch(actions.upnote());
-  },
-  onDownnote() {
-    dispatch(actions.downnote());
-  },
-});
-
-const NoteContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Note);
-
-export default NoteContainer;
-*/
+export default connect(null, mapDispatchToProps)(Note);

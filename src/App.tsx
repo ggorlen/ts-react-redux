@@ -1,6 +1,6 @@
 import React from "react";
-import {createStore} from "redux";
-import {Provider} from "react-redux";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
 import AddNote from "./components/AddNote";
 import Notes from "./components/Notes";
@@ -11,8 +11,10 @@ const store = createStore(rootReducer);
 
 const App = () => (
   <Provider store={store}>
-    <AddNote />
-    <Notes />
+    <div style={{ maxWidth: "300px" }}>
+      <AddNote />
+      <Notes />
+    </div>
   </Provider>
 );
 
