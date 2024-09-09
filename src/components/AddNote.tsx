@@ -9,6 +9,7 @@ const AddNote = ({ onAddNote }) => {
       onSubmit={(evt) => {
         evt.preventDefault();
         onAddNote({ text });
+        setText("");
       }}
     >
       <input value={text} onChange={(evt) => setText(evt.target.value)} />

@@ -8,7 +8,7 @@ const notesReducer = (state = { notes: [] }, action) => {
         ...state,
         notes: [
           ...state.notes,
-          { ...action.payload, id: state.notes.length, rating: 0 },
+          { ...action.payload, id: crypto.randomUUID(), rating: 0 },
         ],
       };
     case actions.EDIT_NOTE:

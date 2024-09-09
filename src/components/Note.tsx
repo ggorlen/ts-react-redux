@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import actions from "../actions";
 import Rating from "./Rating";
 
-const Note = ({ note, onEditNote, onDeleteNote, onInc, onDec }) => {
-  const pRef = useRef<HTMLSpanElement>(null);
+const Note = ({ note, onEditNote, onDeleteNote }) => {
+  const pRef = useRef(null);
   const [editable, setEditable] = useState(false);
 
   const handleBlur = () => {
@@ -35,11 +35,7 @@ const Note = ({ note, onEditNote, onDeleteNote, onInc, onDec }) => {
         {note.text}
       </span>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <Rating
-          rating={note.rating}
-          onInc={() => onInc(note.id)}
-          onDec={() => onDec(note.id)}
-        />
+        <Rating rating={note.rating} noteId={note.id} />
         <button style={{ margin: "1em" }} onClick={() => onDeleteNote(note.id)}>
           x
         </button>
@@ -49,8 +45,6 @@ const Note = ({ note, onEditNote, onDeleteNote, onInc, onDec }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onInc: (id) => dispatch(actions.inc(id)),
-  onDec: (id) => dispatch(actions.dec(id)),
   onDeleteNote: (id) => dispatch(actions.deleteNote(id)),
   onEditNote: (note) => dispatch(actions.editNote(note)),
 });
